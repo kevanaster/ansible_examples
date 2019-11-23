@@ -1,0 +1,30 @@
+---
+
+- name: Agnostic logging configuration
+  hosts: aruba, cisco, juniper
+  gather_facts: no
+
+  # Prompt user for user/password for SSH
+  vars_prompt:
+    - name: ansible_user
+      prompt: "Username"
+      private: no
+    - name: ansible_password
+      prompt: "Password"
+      private: yes 
+      confirm: yes
+
+  # Set provider details to use for SSH
+  vars:
+    provider:
+      username: "{{ansible_user}}"
+      password: "{{ansible_password}}"
+      host: "{{inventory_hostname}}"
+      port: 22
+      timeout: 30
+
+  tasks:
+    - name: Configure Logging
+      include_role:
+        name: logging
+

@@ -1,0 +1,25 @@
+---
+- name: "Get current logging config"
+  aruba_command:
+    commands:
+      - show run | include 'logging '
+  register: logging_output
+
+- name: "Set facts about negating logging config"
+  set_fact:
+     negate_config: "{{logging_output.stdout[0] | aruba_negate_logging(logging_config)}}"
+
+- name: "Remove Extra Logging Config"
+  aruba_config:
+    commands: "{{negate_config}}"
+    match: line
+  when: negate_config != []
+  notify: "Aruba Save Configuration"
+
+- name: "Configure Logging"
+  aruba_config:
+    commands: "{{logging_config}}"
+    match: line
+  notify: "Aruba Save Configuration"
+
+

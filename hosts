@@ -1,0 +1,15 @@
+
+[aruba]
+aruba_lab1
+aruba_lab2
+aruba_lab3
+
+[juniper]
+juniper_lab1
+juniper_lab2
+
+[cisco]
+cisco_lab1
+cisco_lab2
+
+

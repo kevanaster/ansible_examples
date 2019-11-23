@@ -1,0 +1,9 @@
+ansible_network_os: "aruba"
+ansible_connection: "local"
+show_command: "show run | include logg"
+logging_config:
+  - logging level warnings security subcat ids
+  - logging level warnings security subcat ids-ap
+  - logging level informational user
+  - logging 10.1.1.10 type user severity informational facility local0
+  - logging 10.1.2.4 severity warnings
